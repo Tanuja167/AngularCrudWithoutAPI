@@ -1,0 +1,66 @@
+
+
+
+<div class="container">
+    <div class="row">
+     <div class="col-6">
+         <h4>Department List</h4>
+     </div>
+    </div>
+     <div class="row">
+         
+         <div class="col-6" >
+             <table class="table table-bordered" *ngIf="depList!=null && depList.length>0">
+                 <thead>
+                     <tr>
+                         <th>Id</th>
+                         <th>Name</th>
+                         
+                         <th>Actions</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <tr *ngFor="let e of depList">
+                         <td>{{e.id}}</td>
+                         <td>{{e.name}}</td>
+                         
+                         <td>
+                             <input type="button" class="btn btn-warning" value="Edit" (click)="edit(e)" /> &nbsp;&nbsp;
+                             <input type="button" class="btn btn-danger" value="Delete" (click)="delete(e.id)" />
+                         </td>
+                     </tr>
+                 </tbody>
+             </table>
+             <span *ngIf="depList.length==0">
+                 <b class="alert alert-warning" id="msg">No records found..</b>
+             </span>
+         </div>
+    
+         <div class="col-6">
+             <form [formGroup]="depForm" (ngSubmit)="saveData()">
+                 <div class="form-floating mb-3">
+                     <input type="text" required class="form-control" formControlName="id" id="id" placeholder="dep id">
+                     <label for="floatingInput">Department id</label>
+                     <div *ngIf="id?.invalid && (id?.touched && id?.dirty)"  class="text-danger">
+                         <small *ngIf="id?.errors?.['required']">Department id is required</small>
+                     </div>
+                   </div>
+                   <div class="form-floating mb-3">
+                     <input type="text" required class="form-control" formControlName="name" id="name" placeholder="dep id">
+                     <label for="floatingInput">department name</label>
+                     <div *ngIf="name?.invalid && (name?.touched && name?.dirty)" class="text-danger">
+                         <small *ngIf="name?.errors?.['required']">Department name is required</small>
+                     </div>
+                   </div>
+                   
+                   
+                   <div class="form-floating mb-3">
+                    <input type="submit" *ngIf="!isUpdatebtn" [disabled]="depForm.invalid" class="btn btn-primary" value="Add"/>
+                    <input type="submit" *ngIf="isUpdatebtn" [disabled]="depForm.invalid" class="btn btn-primary" value="Update"/>
+                    &nbsp;&nbsp;
+                    <input type="button" class="btn btn-primary" value="Cancel" (click)="clearForm()"/>
+                   </div>
+             </form>
+         </div>
+     </div>
+ </div>

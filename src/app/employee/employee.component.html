@@ -1,0 +1,72 @@
+
+
+
+
+<div class="container">
+    <div class="row">
+     <div class="col-6">
+         <h4>Employee List</h4>
+     </div>
+    </div>
+     <div class="row">
+         
+         <div class="col-6" >
+             <table class="table table-bordered" *ngIf="empList!=null && empList.length>0">
+                 <thead>
+                     <tr>
+                         <th>Id</th>
+                         <th>Name</th>
+                         <th>Salary</th>
+                         <th>Actions</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <tr *ngFor="let e of empList">
+                         <td>{{e.id}}</td>
+                         <td>{{e.name}}</td>
+                         <td>{{e.salary}}</td>
+                         <td>
+                             <input type="button" class="btn btn-warning" value="Edit" (click)="edit(e)" /> &nbsp;&nbsp;
+                             <input type="button" class="btn btn-danger" value="Delete" (click)="delete(e.id)" />
+                         </td>
+                     </tr>
+                 </tbody>
+             </table>
+             <span *ngIf="empList.length==0">
+                 <b class="alert alert-warning" id="msg">No records found..</b>
+             </span>
+         </div>
+    
+         <div class="col-6">
+             <form [formGroup]="empForm" (ngSubmit)="saveData()">
+                 <div class="form-floating mb-3">
+                     <input type="text" required class="form-control" formControlName="id" id="id" placeholder="emp id">
+                     <label for="floatingInput">Employee id</label>
+                     <div *ngIf="id?.invalid && (id?.touched && id?.dirty)"  class="text-danger">
+                         <small *ngIf="id?.errors?.['required']">employee id is required</small>
+                     </div>
+                   </div>
+                   <div class="form-floating mb-3">
+                     <input type="text" required class="form-control" formControlName="name" id="name" placeholder="emp id">
+                     <label for="floatingInput">Employee name</label>
+                     <div *ngIf="name?.invalid && (name?.touched && name?.dirty)" class="text-danger">
+                         <small *ngIf="name?.errors?.['required']">employee name is required</small>
+                     </div>
+                   </div>
+                   <div class="form-floating mb-3">
+                     <input type="text" required class="form-control" formControlName="salary" id="salary" placeholder="emp id">
+                     <label for="floatingInput">Employee salary</label>
+                     <div *ngIf="salary?.invalid && (salary?.touched || salary?.dirty)" class="text-danger">
+                         <small *ngIf="salary?.errors?.['required']">employee salary is required</small>
+                     </div>
+                   </div>
+                   <div class="form-floating mb-3">
+                    <input type="submit" *ngIf="!isUpdatebtn" [disabled]="empForm.invalid" class="btn btn-primary" value="Add"/>
+                    <input type="submit" *ngIf="isUpdatebtn" [disabled]="empForm.invalid" class="btn btn-primary" value="Update"/>
+                    &nbsp;&nbsp;
+                    <input type="button" class="btn btn-primary" value="Cancel" (click)="clearForm()"/>
+                   </div>
+             </form>
+         </div>
+     </div>
+ </div>

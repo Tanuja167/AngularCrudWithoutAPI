@@ -1,0 +1,16 @@
+th{
+    background: #3498DB;
+    text-align: center;
+    color: white;
+}
+td{
+    text-align: center;
+}
+.btn-primary{
+    background: #3498DB;
+    border: 1px solid #3498DB;
+}
+#msg{
+    position: relative;
+    top:20px;
+}
